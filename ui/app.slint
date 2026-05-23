@@ -1,0 +1,188 @@
+import { VerticalBox, HorizontalBox, Button, ComboBox } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    title: "ICS QR";
+    default-font-family: "Sans";
+    min-width: 480px;
+    min-height: 640px;
+    preferred-width: 520px;
+    preferred-height: 720px;
+
+    callback open-file();
+    callback event-selected();
+    callback copy-qr();
+    callback save-qr();
+
+    in-out property <[string]> event-labels: [];
+    in-out property <int> selected-event-index: -1;
+    in-out property <string> file-label: "No file loaded";
+    in-out property <image> qr-image;
+    in-out property <bool> drag-over: false;
+    in-out property <bool> has-qr: false;
+    in-out property <string> status-message: "Click Open ICS File to choose a calendar export.";
+
+    VerticalBox {
+        padding: 20px;
+        spacing: 16px;
+
+        Text {
+            text: "ICS Event QR Generator";
+            font-size: 22px;
+            font-weight: 700;
+            horizontal-alignment: center;
+        }
+
+        Text {
+            text: "Create a scannable QR code for a single calendar event.";
+            font-size: 13px;
+            color: #666;
+            horizontal-alignment: center;
+            wrap: word-wrap;
+        }
+
+        HorizontalBox {
+            spacing: 12px;
+            alignment: start;
+
+            open-button := Button {
+                text: "Open ICS File";
+                min-width: 140px;
+                clicked => {
+                    root.open-file();
+                }
+            }
+
+            Text {
+                text: file-label;
+                font-size: 12px;
+                color: #64748b;
+                vertical-alignment: center;
+                wrap: word-wrap;
+                horizontal-stretch: 1;
+            }
+        }
+
+        drop-zone := Rectangle {
+            min-height: 96px;
+            border-radius: 10px;
+            background: drag-over ? #e8f4ff : #f5f7fa;
+            border-width: 2px;
+            border-color: drag-over ? #3b82f6 : #c7d2e0;
+
+            VerticalBox {
+                padding: 16px;
+                spacing: 6px;
+                alignment: center;
+
+                Text {
+                    text: drag-over ? "Drop .ics file here" : "Or drag and drop an .ics file onto this window";
+                    font-size: 14px;
+                    font-weight: 600;
+                    horizontal-alignment: center;
+                    color: drag-over ? #1d4ed8 : #334155;
+                    wrap: word-wrap;
+                }
+
+                Text {
+                    text: "Drag-and-drop works on X11. On Wayland, use Open ICS File.";
+                    font-size: 11px;
+                    horizontal-alignment: center;
+                    color: #94a3b8;
+                    wrap: word-wrap;
+                }
+            }
+        }
+
+        Rectangle {
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        VerticalBox {
+            spacing: 8px;
+
+            Text {
+                text: "Event";
+                font-size: 13px;
+                font-weight: 600;
+                color: #334155;
+            }
+
+            ComboBox {
+                model: root.event-labels;
+                current-index <=> root.selected-event-index;
+                enabled: root.event-labels.length > 0;
+                selected => {
+                    root.event-selected();
+                }
+            }
+        }
+
+        qr-panel := Rectangle {
+            vertical-stretch: 1;
+            min-height: 240px;
+            border-radius: 10px;
+            background: #ffffff;
+            border-width: 1px;
+            border-color: #e2e8f0;
+            clip: true;
+
+            VerticalBox {
+                padding: 16px;
+                spacing: 12px;
+                alignment: center;
+
+                Text {
+                    text: has-qr ? "Scan with your phone camera, then tap Add to Calendar" : "Select an event to generate a QR code";
+                    font-size: 13px;
+                    color: #64748b;
+                    horizontal-alignment: center;
+                    wrap: word-wrap;
+                }
+
+                qr-container := Rectangle {
+                    vertical-stretch: 1;
+                    horizontal-stretch: 1;
+                    min-height: 120px;
+
+                    qr-display := Image {
+                        source: root.qr-image;
+                        width: parent.width;
+                        height: parent.height;
+                        image-fit: contain;
+                        visible: root.has-qr;
+                    }
+                }
+            }
+        }
+
+        HorizontalBox {
+            spacing: 12px;
+            alignment: center;
+
+            Button {
+                text: "Copy Image";
+                enabled: root.has-qr;
+                clicked => {
+                    root.copy-qr();
+                }
+            }
+
+            Button {
+                text: "Save Image";
+                enabled: root.has-qr;
+                clicked => {
+                    root.save-qr();
+                }
+            }
+        }
+
+        Text {
+            text: status-message;
+            font-size: 12px;
+            color: #64748b;
+            horizontal-alignment: center;
+            wrap: word-wrap;
+        }
+    }
+}
