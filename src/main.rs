@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC0-1.0
+// SPDX-FileCopyrightText: none
 //! ICS QR desktop application.
 //!
 //! Wires the Slint UI to ICS parsing, QR generation, file dialogs, clipboard

@@ -3,6 +3,7 @@ name = "icsqr"
 version = "0.1.0"
 edition = "2024"
 build = "build.rs"
+license = "CC0-1.0"
 
 [dependencies]
 arboard = "3.6.1"

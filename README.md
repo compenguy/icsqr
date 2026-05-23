@@ -133,6 +133,12 @@ icsqr/
     └── qr.rs         # QR code generation
 ```
 
-## License
+## Creative Commons Public Dedication
 
-See repository license terms (if applicable).
+This project is not licensed. It is freely given under the Creative Commons Zero (CC0) terms.
+
+I (William Page) am the grantor, and disclaim copyright to all project assets, including source code and metadata.
+
+As such, no works in this project are under copyright, but are in the public domain.
+
+See the GRANT.txt file in the project for the full legal text.

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC0-1.0
+// SPDX-FileCopyrightText: none
 //! QR code generation for display, clipboard copy, and PNG export.
 
 use image::{ImageFormat, Luma, Rgba, RgbaImage};

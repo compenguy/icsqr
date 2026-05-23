@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: CC0-1.0
+// SPDX-FileCopyrightText: none
 //! Parsing `.ics` files and building minimal single-event iCalendar exports for QR codes.
 //!
 //! Phone cameras expect compact, raw `VCALENDAR` text in the QR payload. This module
