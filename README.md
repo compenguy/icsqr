@@ -150,7 +150,9 @@ icsqr/
 The original codebase for this project was 100% vibe coded. Contributions are welcome, but
 I hold little personal investment in this project.
 
-I will gladly credit contributors to this project for their contributions.
+I will gladly credit contributors to this project for their contributions, but they must
+also provide a CC0 grant (disclaim copyright and enter their contribution into the public
+domain).
 
 ## Creative Commons Public Dedication
 
