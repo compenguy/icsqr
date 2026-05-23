@@ -1,6 +1,8 @@
 # ICS QR
 
-A cross-platform desktop app (Linux and Windows) that turns a single iCalendar event into a scannable QR code. Scan the code with a phone camera to add the event to Apple Calendar, Google Calendar, Outlook, or any other app that understands iCalendar (`.ics`) data.
+A cross-platform desktop app (Linux and Windows) that turns a single iCalendar event into a
+scannable QR code. Scan the code with a phone camera to add the event to Apple Calendar,
+Google Calendar, Outlook, or any other app that understands iCalendar (`.ics`) data.
 
 Built with [Rust](https://www.rust-lang.org/) and [Slint](https://slint.dev/).
 
@@ -58,9 +60,14 @@ cargo test
 
 ### Expected workflow
 
-ICS QR is meant for sharing **one event** at a time in a physical or digital context where a URL is awkward: posters, slide decks, name badges, printed handouts, or chat messages. The QR encodes the event directly—no server, account, or internet connection is required at scan time.
+ICS QR is meant for sharing **one event** at a time in a physical or digital context where
+a URL is awkward: posters, slide decks, name badges, printed handouts, or chat messages.
+The QR encodes the event directly — no server, account, or internet connection is required
+at scan time.
 
-Each QR holds a self-contained `VCALENDAR` with a single `VEVENT`. The payload is **raw iCalendar text**, not a `data:` URI or hosted link, because phone cameras reliably recognize that format.
+Each QR holds a self-contained `VCALENDAR` with a single `VEVENT`. The payload is **raw
+iCalendar text**, not a `data:` URI or hosted link, because phone cameras reliably
+recognize that format.
 
 ## QR payload format
 
@@ -85,7 +92,8 @@ When scanned, the phone’s calendar app parses this text and offers to save the
 
 ## What is kept vs. stripped
 
-To keep QR codes scannable, the app exports a **minimal** calendar—not a byte-for-byte copy of the source file.
+To keep QR codes scannable, the app exports a **minimal** calendar — not a byte-for-byte
+copy of the source file.
 
 ### Kept
 
@@ -100,7 +108,8 @@ To keep QR codes scannable, the app exports a **minimal** calendar—not a byte-
 
 ### Stripped
 
-These are omitted to reduce QR density and because phones rarely need them for “add to calendar”:
+These are omitted to reduce QR density and because phones rarely need them for
+“add to calendar”:
 
 - Alarms (`VALARM`)
 - Attendees, organizer, categories, status, priority, class, transparency
@@ -109,7 +118,8 @@ These are omitted to reduce QR density and because phones rarely need them for �
 - Unused timezone definitions
 - All other events in the file (only the selected event is exported)
 
-If you need the full original event—including attendees, reminders, or proprietary fields—share the `.ics` file directly instead of a QR code.
+If you need the full original event — including attendees, reminders, or proprietary
+fields — share the `.ics` file directly instead of a QR code.
 
 ## Platform notes
 
@@ -119,7 +129,9 @@ If you need the full original event—including attendees, reminders, or proprie
 | Drag-and-drop | Yes | No | Yes |
 | Copy / save QR | Yes | Yes | Yes |
 
-On Wayland, file dialogs use the async portal API and are attached to the app window so the compositor does not treat the UI as frozen. Drag-and-drop is not supported by winit on Wayland; use **Open ICS File** instead.
+On Wayland, file dialogs use the async portal API and are attached to the app window so the
+compositor does not treat the UI as frozen. Drag-and-drop is not supported by winit on
+Wayland; use **Open ICS File** instead.
 
 ## Project layout
 
@@ -133,11 +145,24 @@ icsqr/
     └── qr.rs         # QR code generation
 ```
 
+## Contributing
+
+The original codebase for this project was 100% vibe coded. Contributions are welcome, but
+I hold little personal investment in this project.
+
+I will gladly credit contributors to this project for their contributions.
+
 ## Creative Commons Public Dedication
 
-This project is not licensed. It is freely given under the Creative Commons Zero (CC0) terms.
+I do not believe AI-written code to be copyrightable, nor to have a creator in the legal
+sense. In service to that belief, I am making it explicit with this project and entering it
+into the public domain, foregoing any personal claim to copyright.
 
-I (William Page) am the grantor, and disclaim copyright to all project assets, including source code and metadata.
+This project is not licensed. It is freely given under the Creative Commons Zero (CC0)
+terms.
+
+I (William Page) am the grantor, and disclaim copyright to all project assets, including
+source code and metadata.
 
 As such, no works in this project are under copyright, but are in the public domain.
 
